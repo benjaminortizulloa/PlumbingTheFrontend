@@ -3,11 +3,13 @@
 const projection = d3.geoAlbersUsa().scale(1300).translate([487.5, 305])
 let path = d3.geoPath().projection(projection)
 
-let svg = d3.select('body')
+let section = d3.select('body')
     .append('section')
-    .append('svg')
-    .style('height', '100%')
+
+let svg = section.append('svg')
+    .style('height', '80%')
     .attr('viewBox', '0 0 975 610')
+
 
 let g = svg
     .append('g')
@@ -37,12 +39,25 @@ function createPalette(items) {
     return pal
 }
 
-let regions = ['South', 'West', 'Northeast', 'North Central']
+let regions = ['Northeast', 'North Central', 'South', 'West']
 let regionPal = createPalette(regions)
 
 let division = ['East South Central', 'Pacific', 'Mountain', 'West South Central', 'New England', 'South Atlantic', 'East North Central', 'West North Central', 'Middle Atlantic']
 let divisionPal = createPalette(division)
 
+let div = section.append('div');
+
+div.append('p')
+    .append('b')
+    .html('Regions')
+
+div.selectAll('p.keys')
+    .data(regions)
+    .enter().append('p')
+    .style('border-bottom', d => `3px solid ${regionPal[d]}`)
+    .style('border-right', d => `3px solid ${regionPal[d]}`)
+    .style('margin-right', '5px')
+    .html(d => d)
 
 function mergeData(data) {
     states.features = states.features.map(state => {
