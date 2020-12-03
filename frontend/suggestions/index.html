@@ -1,0 +1,28 @@
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{suggestions}}
+    </div>
+</body>
+<script src="../assets/axios.min.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            suggestions: []
+        },
+        created() {
+            axios({
+                    url: 'http://localhost:3000/suggestions',
+                    method: "GET"
+                })
+                .then(response => {
+                    this.suggestions = response.data
+                })
+                .catch(err => console.log('err', err))
+        }
+    })
+</script>

@@ -68,7 +68,5 @@ function mergeData(data) {
         return (state)
     })
 
-
-
     statePaths.attr('fill', d => regionPal[d.properties.region])
 }
