@@ -1,0 +1,6 @@
+let login = d3.select('header')
+    .append('button')
+    .append('a')
+    .style("font-size", "3vh")
+    .attr('href', 'http://github.com/login/oauth/authorize?client_id=b823783bcb81ca97c4b9')
+    .html('Login')

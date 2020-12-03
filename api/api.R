@@ -2,10 +2,12 @@ source('functions.R')
 
 #* @filter cors
 cors <- function(req, res) {
-  allowlist <- c("http://127.0.0.1:5500")
+  allowlist <- c("http://localhost:5500", "http://127.0.0.1:5500")
 
-  if(req$HTTP_ORIGIN %in% allowlist){
-    res$setHeader("Access-Control-Allow-Origin", req$HTTP_ORIGIN)
+  if(!is.null(req$HTTP_ORIGIN)){
+    if(req$HTTP_ORIGIN %in% allowlist){
+      res$setHeader("Access-Control-Allow-Origin", req$HTTP_ORIGIN)
+    }
   }
   res$setHeader('Vary', 'Origin')
 
@@ -42,3 +44,9 @@ function(req, res){
 #' 
 #' @get /suggestions
 getSuggestions
+
+#' Get Token
+#' 
+#' @param code
+#' @get /OAuth
+receiveOAuth

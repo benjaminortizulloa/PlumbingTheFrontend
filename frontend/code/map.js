@@ -3,7 +3,7 @@
 const projection = d3.geoAlbersUsa().scale(1300).translate([487.5, 305])
 let path = d3.geoPath().projection(projection)
 
-let section = d3.select('body')
+let section = d3.select('main')
     .append('section')
 
 let svg = section.append('svg')
