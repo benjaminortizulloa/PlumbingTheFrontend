@@ -1,9 +1,14 @@
 source('functions.R')
 
 #* @filter cors
-cors <- function(res) {
-  res$setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500")
+cors <- function(req, res) {
+  allowlist <- c("http://127.0.0.1:5500")
+
+  if(req$HTTP_ORIGIN %in% allowlist){
+    res$setHeader("Access-Control-Allow-Origin", req$HTTP_ORIGIN)
+  }
   res$setHeader('Vary', 'Origin')
+
   res$setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS")
   res$setHeader('Access-Control-Allow-Headers', 'Content-Type')
   plumber::forward()
@@ -22,6 +27,7 @@ stateData
 #' @options /suggestion
 #' @post /suggestion
 function(req, res){
+
   if(req$REQUEST_METHOD == 'OPTIONS'){
     return( 'Is valid endpoint')
   }
