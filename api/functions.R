@@ -27,7 +27,6 @@ getSuggestions <- function(){
   return(suggestions)
 }
 
-
 mySecret = "mySuperSecret-Secret"
 
 receiveOAuth <- function(code, req, res) {
@@ -42,7 +41,6 @@ receiveOAuth <- function(code, req, res) {
   sig <- jose::jwt_encode_hmac(jwt, mySecret)
 
   res$setCookie('jwt', sig)
-  
   
   myUrl <- "http://localhost:5500/"
   

@@ -3,17 +3,40 @@
 </head>
 
 <body>
-    <div id="app">
-        {{suggestions}}
+    <div id="suggestions">
+        <header>
+            <button class="nav" v-for="(btn, i) in btns" :key="i" @click="btn.func()">
+                {{btn.innerText}}
+            </button>
+        </header>
+        <main>
+            <section>
+                {{suggestions}}
+            </section>
+        </main>
     </div>
 </body>
 <script src="../assets/axios.min.js"></script>
 <script>
     var app = new Vue({
-        el: '#app',
+        el: '#suggestions',
         data: {
-            suggestions: []
+            suggestions: [],
+            btns: [{
+                innerText: 'Home',
+                func() {
+                    window.location.href = '/'
+                }
+            }, {
+                innerText: 'logout',
+                func() {
+                    document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    window.location.href = '/'
+                }
+            }]
         },
+
+        methods: {},
         created() {
             axios({
                     url: 'http://localhost:3000/suggestions',
@@ -26,3 +49,4 @@
         }
     })
 </script>
+<link rel="stylesheet" href="../assets/styles.css">
