@@ -1,5 +1,5 @@
 axios({
-        url: 'https://hungry-hamilton-4871a5.netlify.app/states',
+        url: 'https://helloworld-yrm72n47jq-ue.a.run.app/states',
         method: "GET"
     })
     .then(response => {
