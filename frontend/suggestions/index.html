@@ -74,12 +74,13 @@
         methods: {
             putSuggestion(data, action) {
                 axios({
-                        url: "http://localhost:3000/suggestions",
+                        url: "http://localhost:3000/suggestion",
                         method: "PUT",
                         data: {
                             state: data.state,
                             newRegion: data.newRegion,
-                            user: data.user
+                            user: data.user,
+                            action: action
                         },
                         headers: {
                             'Authorization': this.getCookie('jwt')

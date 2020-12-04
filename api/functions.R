@@ -1,8 +1,8 @@
 states = data.frame(
   name=state.name,
   abb=state.abb,
-  region=state.region,
-  division=state.division,
+  region=as.character(state.region),
+  division=as.character(state.division),
   stringsAsFactors = F
 )
 
@@ -38,7 +38,7 @@ receiveOAuth <- function(code, req, res) {
   
   info = httr::GET("https://api.github.com/user", httr::add_headers(Authorization=paste('token', token)))
   
-  jwt <- jose::jwt_claim(user = info$login)
+  jwt <- jose::jwt_claim(user = httr::content(info)$login)
   sig <- jose::jwt_encode_hmac(jwt, mySecret)
 
   res$setCookie('jwt', sig)
@@ -59,9 +59,11 @@ receiveOAuth <- function(code, req, res) {
 }
 
 putSuggestion <- function(state, newRegion, user, action){
+  print(action)
   suggestions <<- suggestions[!(suggestions$state == state & suggestions$newRegion == newRegion & suggestions$user ==user), ]
-  if(action == 'accept'){
+  if(action == 'approve'){
     states[states$name == state,'region'] <<- newRegion
   }
+  
   return(suggestions)
 }
