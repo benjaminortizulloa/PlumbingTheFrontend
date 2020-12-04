@@ -12,7 +12,7 @@ cors <- function(req, res) {
   res$setHeader('Vary', 'Origin')
 
   res$setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS")
-  res$setHeader('Access-Control-Allow-Headers', 'Content-Type')
+  res$setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
   plumber::forward()
 }
 
@@ -44,8 +44,7 @@ function(req, res){
     return(list(error="Authentication required [Must have valid JWT]"))
   }
   
-  decoded <- readJWT(req$HTTP_AUTHORIZATION)
-  print(decoded)
+  decoded <- jose::jwt_decode_hmac(req$HTTP_AUTHORIZATION, "mySuperSecret-Secret")
   
   if(req$REQUEST_METHOD == 'PUT'){
     putSuggestion(req$args$state, req$args$newRegion, req$args$user, req$args$action)
