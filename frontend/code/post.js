@@ -1,6 +1,6 @@
 function makeSuggstion(state, newRegion, user) {
     axios({
-            url: 'http://localhost:3000/suggestion',
+            url: 'https://helloworld-yrm72n47jq-ue.a.run.app/suggestion',
             method: "POST",
             data: {
                 state: state,

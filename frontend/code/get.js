@@ -1,5 +1,5 @@
 axios({
-        url: 'http://localhost:3000/states',
+        url: 'https://hungry-hamilton-4871a5.netlify.app/states',
         method: "GET"
     })
     .then(response => {

@@ -74,7 +74,7 @@
         methods: {
             putSuggestion(data, action) {
                 axios({
-                        url: "http://localhost:3000/suggestion",
+                        url: "https://helloworld-yrm72n47jq-ue.a.run.app/suggestion",
                         method: "PUT",
                         data: {
                             state: data.state,
@@ -109,7 +109,7 @@
         },
         created() {
             axios({
-                    url: 'http://localhost:3000/suggestions',
+                    url: 'https://helloworld-yrm72n47jq-ue.a.run.app/suggestions',
                     method: "GET"
                 })
                 .then(response => {
