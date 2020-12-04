@@ -43,7 +43,7 @@ receiveOAuth <- function(code, req, res) {
 
   res$setCookie('jwt', sig)
   
-  myUrl <- "http://localhost:5500/"
+  myUrl <- "https://helloworld-yrm72n47jq-ue.a.run.app/"
   
   res$status <- 303 # redirect
   res$setHeader("Location", myUrl)
