@@ -10,7 +10,7 @@ function makeSuggstion(state, newRegion, user) {
         })
         .then(response => {
             alert("Thank you for your suggestion")
-            closemodal(response)
+            modal.style('display', 'none')
         })
         .catch(err => console.log('err', err))
 }
