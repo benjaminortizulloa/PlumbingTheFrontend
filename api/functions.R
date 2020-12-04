@@ -19,7 +19,7 @@ suggestions = data.frame(
 
 postSuggestion <- function(state, newRegion, user){
   newSuggestion <- data.frame(state = state, newRegion = newRegion, user = user, stringsAsFactors = F)
-  suggestions <- rbind(suggestions, newSuggestion)
+  suggestions <<- rbind(suggestions, newSuggestion)
   return(suggestions)
 }
 
