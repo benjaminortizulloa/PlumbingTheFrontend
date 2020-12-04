@@ -60,7 +60,7 @@ receiveOAuth <- function(code, req, res) {
 
 putSuggestion <- function(state, newRegion, user, action){
   suggestions <<- suggestions[!(suggestions$state == state & suggestions$newRegion == newRegion & suggestions$user ==user), ]
-  if(action == 'accept'){
+  if(action == 'approve'){
     states[states$name == state,'region'] <<- newRegion
   }
   return(suggestions)
