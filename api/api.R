@@ -28,6 +28,7 @@ stateData
 #' @param user the user making the suggestion
 #' @options /suggestion
 #' @post /suggestion
+#' @put /suggestion
 function(req, res){
 
   if(req$REQUEST_METHOD == 'OPTIONS'){
@@ -38,6 +39,17 @@ function(req, res){
     postSuggestion(req$args$state, req$args$newRegion, req$args$user)
   }
   
+  if(!nchar(req$HTTP_AUTHORIZATION)){
+    res$status <- 401 # Unauthorized
+    return(list(error="Authentication required [Must have valid JWT]"))
+  }
+  
+  decoded <- readJWT(req$HTTP_AUTHORIZATION)
+  print(decoded)
+  
+  if(req$REQUEST_METHOD == 'PUT'){
+    putSuggestion(req$args$state, req$args$newRegion, req$args$user, req$args$action)
+  }
 }
 
 #' Get a list of suggested regions

@@ -2,7 +2,8 @@ states = data.frame(
   name=state.name,
   abb=state.abb,
   region=state.region,
-  division=state.division
+  division=state.division,
+  stringsAsFactors = F
 )
 
 stateData <- function(){
@@ -55,4 +56,12 @@ receiveOAuth <- function(code, req, res) {
          <p>Please follow <a href=\"",myUrl,"\">this link</a>.</p>
          </body>
          </html>")
+}
+
+putSuggestion <- function(state, newRegion, user, action){
+  suggestions <<- suggestions[!(suggestions$state == state & suggestions$newRegion == newRegion & suggestions$user ==user), ]
+  if(action == 'accept'){
+    states[states$name == state,'region'] <<- newRegion
+  }
+  return(suggestions)
 }

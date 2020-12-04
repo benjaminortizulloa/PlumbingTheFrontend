@@ -1,7 +1,6 @@
 <head>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/solid.min.css" rel="stylesheet">
 </head>
 
@@ -32,13 +31,14 @@
                             <td>
                                 <div style="display: flex; justify-content: space-around;;">
                                     <div>
-
-                                        <span style="font-size: 3em; color: #1b9e77;" class="fas fa-thumbs-up">
+                                        <span style="font-size: 3em; color: #1b9e77;" class="fas fa-thumbs-up"
+                                            @click="putSuggestion(suggest, 'approve')">
                                         </span>
                                     </div>
                                     <div>
 
-                                        <span style="font-size: 3em; color: #d95f02;" class='fas fa-thumbs-down'>
+                                        <span style="font-size: 3em; color: #d95f02;" class='fas fa-thumbs-down'
+                                            @click="putSuggestion(suggest, 'decline')">
                                         </span>
                                     </div>
                                 </div>
@@ -71,7 +71,41 @@
             }]
         },
 
-        methods: {},
+        methods: {
+            putSuggestion(data, action) {
+                axios({
+                        url: "http://localhost:3000/suggestions",
+                        method: "PUT",
+                        data: {
+                            state: data.state,
+                            newRegion: data.newRegion,
+                            user: data.user
+                        },
+                        headers: {
+                            'Authorization': this.getCookie('jwt')
+                        }
+                    })
+                    .then(response => {
+                        this.suggestions = response.data;
+                    })
+                    .catch(err => console.log(err))
+            },
+            getCookie(cname) {
+                var name = cname + "=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var ca = decodedCookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+        },
         created() {
             axios({
                     url: 'http://localhost:3000/suggestions',
