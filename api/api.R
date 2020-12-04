@@ -36,7 +36,7 @@ function(req, res){
   }
   
   if(req$REQUEST_METHOD == 'POST'){
-    postSuggestion(req$args$state, req$args$newRegion, req$args$user)
+    return(postSuggestion(req$args$state, req$args$newRegion, req$args$user))
   }
   
   if(!nchar(req$HTTP_AUTHORIZATION)){
@@ -47,7 +47,7 @@ function(req, res){
   decoded <- jose::jwt_decode_hmac(req$HTTP_AUTHORIZATION, "mySuperSecret-Secret")
   
   if(req$REQUEST_METHOD == 'PUT'){
-    putSuggestion(req$args$state, req$args$newRegion, req$args$user, req$args$action)
+    return(putSuggestion(req$args$state, req$args$newRegion, req$args$user, req$args$action))
   }
 }
 
