@@ -43,7 +43,7 @@ receiveOAuth <- function(code, req, res) {
 
   res$setCookie('jwt', sig)
   
-  myUrl <- "https://helloworld-yrm72n47jq-ue.a.run.app/"
+  myUrl <- "https://hungry-hamilton-4871a5.netlify.app/"
   
   res$status <- 303 # redirect
   res$setHeader("Location", myUrl)
